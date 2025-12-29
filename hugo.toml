@@ -1,0 +1,41 @@
+baseURL = "https://fbrv.github.io/"
+title = "My Engineering Blog"
+languageCode = "en-us"
+theme = "PaperMod"
+paginate = 10
+enableRobotsTXT = true
+enableGitInfo = true
+
+[params]
+  author = "Fabio"
+  description = "Thoughts on software, systems, and engineering"
+  defaultTheme = "auto"
+  ShowReadingTime = true
+  ShowShareButtons = true
+  ShowCodeCopyButtons = true
+  ShowPostNavLinks = true
+
+[params.homeInfoParams]
+  Title = "👋 Hi, I'm Fabio"
+  Content = "I write about engineering, systems, and things I learn building software."
+
+[params.socialIcons]
+  github = "fbrv"
+
+[markup]
+  [markup.highlight]
+    noClasses = false
+    codeFences = true
+    guessSyntax = true
+    lineNos = true
+    style = "github"
+
+[[menu.main]]
+  name = "Posts"
+  url = "/posts/"
+  weight = 1
+
+[[menu.main]]
+  name = "About"
+  url = "/about/"
+  weight = 2
