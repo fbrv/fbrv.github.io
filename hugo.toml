@@ -20,7 +20,7 @@ enableGitInfo = true
 
 [params.homeInfoParams]
   Title = "Hello, it's Fabio!"
-  Content = "Undefined behavior, defined opinions.."
+  Content = "Undefined behavior, defined opinions."
 
 [markup]
   [markup.highlight]
