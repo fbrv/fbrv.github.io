@@ -1,5 +1,5 @@
 baseURL = "https://fbrv.github.io/"
-title = "My Engineering Blog"
+title = "Yet another programming blog"
 languageCode = "en-us"
 theme = "PaperMod"
 enableRobotsTXT = true
@@ -19,8 +19,8 @@ enableGitInfo = true
   pagerSize = 10
 
 [params.homeInfoParams]
-  Title = "👋 Hi, I'm Fabio"
-  Content = "I write about engineering, systems, and things I learn building software."
+  Title = "Hello, it's Fabio!"
+  Content = "Undefined behavior, defined opinions.."
 
 [markup]
   [markup.highlight]
