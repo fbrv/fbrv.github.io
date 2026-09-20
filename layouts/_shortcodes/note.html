@@ -1,0 +1,5 @@
+{{- /* {{< note label="Caveat" type="warn" >}} ... {{< /note >}} */ -}}
+<div class="note{{ if eq (.Get "type") "warn" }} note--warn{{ end }}">
+  <span class="note__label">{{ .Get "label" | default "Note" }}</span>
+  {{ .Inner | .Page.RenderString }}
+</div>

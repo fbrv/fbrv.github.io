@@ -1,41 +1,109 @@
 baseURL = "https://fbrv.github.io/"
-title = "Yet another programming blog"
-languageCode = "en-us"
-theme = "PaperMod"
+title = "Fabio Baravalle"
+locale = "en-us"
+defaultContentLanguage = "en"
 enableRobotsTXT = true
 enableGitInfo = true
+enableEmoji = true
+
+copyright = "Fabio Baravalle"
+timeout = "60s"
 
 [params]
-  author = "Fabio"
-  description = "Thoughts on software, systems, and engineering"
-  defaultTheme = "auto"
-  ShowReadingTime = true
-  ShowShareButtons = true
-  ShowCodeCopyButtons = true
-  ShowPostNavLinks = true
+  # Identity ---------------------------------------------------------------
+  author      = "Fabio Baravalle"
+  subtitle    = "Engineering notebook"
+  tagline     = "Undefined behavior, defined opinions."
+  description = "Notes from the hardware/software boundary: systems programming, silicon, Rust, and the things that break in between."
+  keywords    = ["systems programming", "asic", "rust", "hardware", "low-level", "silicon", "embedded"]
+  locale      = "en_US"
 
+  # Notebook chrome --------------------------------------------------------
+  revision       = true   # show "REV <date>" in the masthead
+  showEntryNums  = true   # 001, 002, ... on entries
+  numberSections = true   # § numbers on h2 within posts
 
-[pagination]
-  pagerSize = 10
+  # Feeds / machine-readable ----------------------------------------------
+  fullTextRSS  = true
+  llmsTxt      = true     # /llms.txt site digest
+  markdownPage = true     # every post also served as raw .md
 
-[params.homeInfoParams]
-  Title = "Hello, it's Fabio!"
-  Content = "Undefined behavior, defined opinions."
+  # Crawlers ---------------------------------------------------------------
+  # Set to false to disallow AI crawlers in robots.txt.
+  allowAICrawlers = true
 
-[markup]
-  [markup.highlight]
-    noClasses = false
-    codeFences = true
-    guessSyntax = true
-    lineNos = true
-    style = "github"
+[params.profile]
+  github   = "fbrv"
+  email    = "fabio.baravalle@gmail.com"
 
 [[menu.main]]
-  name = "Posts"
-  url = "/posts/"
+  name   = "Notebook"
+  url    = "/posts/"
   weight = 1
 
 [[menu.main]]
-  name = "About"
-  url = "/about/"
+  name   = "Topics"
+  url    = "/tags/"
   weight = 2
+
+[[menu.main]]
+  name   = "About"
+  url    = "/about/"
+  weight = 3
+
+# Output formats ----------------------------------------------------------
+[outputFormats]
+  [outputFormats.llms]
+    mediaType     = "text/plain"
+    baseName      = "llms"
+    isPlainText   = true
+    rel           = "alternate"
+    permalinkable = false
+  [outputFormats.markdown]
+    mediaType     = "text/markdown"
+    baseName      = "index"
+    isPlainText   = true
+    rel           = "alternate"
+    permalinkable = false
+
+[outputs]
+  home     = ["html", "rss", "llms"]
+  page     = ["html", "markdown"]
+  section  = ["html", "rss"]
+  taxonomy = ["html"]
+  term     = ["html", "rss"]
+
+[markup]
+  [markup.highlight]
+    noClasses      = false
+    codeFences     = true
+    guessSyntax    = true
+    lineNos        = false
+    tabWidth       = 2
+    wrapperClass   = "highlight"
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.goldmark.parser]
+    [markup.goldmark.parser.attribute]
+      block = true
+      title = true
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel   = 3
+    ordered    = false
+
+[taxonomies]
+  tag = "tags"
+
+[services.rss]
+  limit = 50
+
+[sitemap]
+  changefreq = "weekly"
+  filename   = "sitemap.xml"
+  priority   = 0.6
+
+[minify]
+  disableHTML = false
+  [minify.tdewolff.html]
+    keepComments = false

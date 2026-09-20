@@ -1,0 +1,15 @@
+<footer class="foot">
+  <div class="foot__inner">
+    <div>
+      © {{ now.Year }} {{ site.Params.author }}. Text under
+      <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a>.
+    </div>
+    <div class="foot__links">
+      <a href="{{ "index.xml" | relURL }}">RSS</a>
+      {{- if site.Params.llmsTxt }}<a href="{{ "llms.txt" | relURL }}" title="Machine-readable site digest">llms.txt</a>{{ end }}
+      {{- with site.Params.profile.github }}<a href="https://github.com/{{ . }}" rel="me">GitHub</a>{{ end }}
+      {{- with site.Params.profile.email }}<a href="mailto:{{ . }}">Email</a>{{ end }}
+      <a href="{{ "sitemap.xml" | relURL }}">Sitemap</a>
+    </div>
+  </div>
+</footer>

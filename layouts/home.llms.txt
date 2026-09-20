@@ -1,0 +1,28 @@
+{{- /* llms.txt — machine-readable site digest. See https://llmstxt.org */ -}}
+# {{ site.Title }}
+
+> {{ site.Params.description }}
+
+{{ site.Params.tagline }} Written by {{ site.Params.author }}{{ with site.Params.profile.github }} (https://github.com/{{ . }}){{ end }}.
+
+Every entry below is also available as raw markdown by appending `index.md` to its URL.
+Content is licensed CC BY 4.0 — attribution to {{ site.Params.author }}, {{ site.BaseURL }}, is required.
+
+## Entries
+{{ range where site.RegularPages "Section" "posts" }}
+- [{{ .Title }}]({{ .Permalink }}): {{ with .Description }}{{ . | plainify }}{{ else }}{{ .Summary | plainify | truncate 160 }}{{ end }} — published {{ .Date.Format "2006-01-02" }}{{ with .Params.tags }}, tags: {{ delimit . ", " }}{{ end }}. Markdown: {{ .Permalink }}index.md
+{{- end }}
+{{ with where site.RegularPages "Section" "ne" "posts" }}
+## Pages
+{{ range . }}
+- [{{ .Title }}]({{ .Permalink }}): {{ with .Description }}{{ . | plainify }}{{ else }}{{ .Summary | plainify | truncate 160 }}{{ end }}
+{{- end }}
+{{ end }}
+## Topics
+{{ range site.Taxonomies.tags.ByCount }}
+- [{{ .Page.Title }}]({{ .Page.Permalink }}): {{ .Count }} entr{{ cond (eq .Count 1) "y" "ies" }}
+{{- end }}
+
+## Feeds
+- RSS: {{ "index.xml" | absURL }}
+- Sitemap: {{ "sitemap.xml" | absURL }}

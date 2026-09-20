@@ -1,0 +1,5 @@
+{{- /* {{< figure src="..." alt="..." caption="..." wide="true" >}} */ -}}
+<figure{{ if .Get "wide" }} class="full"{{ end }}>
+  <img src="{{ .Get "src" | relURL }}" alt="{{ .Get "alt" }}"{{ with .Get "width" }} width="{{ . }}"{{ end }}{{ with .Get "height" }} height="{{ . }}"{{ end }} loading="lazy" decoding="async">
+  {{- with .Get "caption" }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
+</figure>

@@ -1,0 +1,16 @@
+{{- /* {{< spec title="Target" >}}
+       process    | 130 nm
+       area       | 0.9 mm²
+       {{< /spec >}} */ -}}
+<aside class="spec">
+  <div class="spec__title">{{ .Get "title" | default "Spec" }}</div>
+  <dl>
+    {{- range (split (trim .Inner "\n") "\n") -}}
+      {{- $row := split . "|" -}}
+      {{- if eq (len $row) 2 }}
+      <dt>{{ trim (index $row 0) " " }}</dt>
+      <dd>{{ trim (index $row 1) " " }}</dd>
+      {{- end -}}
+    {{- end }}
+  </dl>
+</aside>

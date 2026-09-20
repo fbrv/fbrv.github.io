@@ -1,0 +1,13 @@
+{{ define "main" }}
+{{ $terms := .Data.Terms.ByCount }}
+<header class="sechead col">
+  <span class="sechead__count">{{ len $terms }} topics</span>
+  <h1>Topics</h1>
+  <p>Everything in the notebook, by subject.</p>
+</header>
+<ul class="tags col" style="gap:.6rem">
+  {{ range $terms }}
+  <li><a class="tag" href="{{ .Page.RelPermalink }}">{{ .Page.Title }} <span style="color:var(--ink-3)">{{ .Count }}</span></a></li>
+  {{ end }}
+</ul>
+{{ end }}

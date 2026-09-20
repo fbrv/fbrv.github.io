@@ -1,0 +1,21 @@
+{{- $num := .num -}}
+{{- with .page -}}
+<li class="entry">
+  <div class="entry__head">
+    {{ if $num }}<span class="entry__num">{{ printf "%03d" $num }}</span>{{ else }}<span></span>{{ end }}
+    <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+  </div>
+  <div class="entry__body">
+    <h2 class="entry__title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+    <p class="entry__summary">{{ .Description | default .Summary | plainify | truncate 190 }}</p>
+    <div class="entry__foot">
+      {{- with .Params.tags }}
+      <ul class="tags">
+        {{- range . }}<li><a class="tag" href="{{ (printf "/tags/%s/" (urlize .)) | relURL }}">{{ . }}</a></li>{{ end }}
+      </ul>
+      {{- else }}<span></span>{{ end }}
+      <span>{{ .ReadingTime }} min · {{ .WordCount }} words</span>
+    </div>
+  </div>
+</li>
+{{- end -}}

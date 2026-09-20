@@ -1,0 +1,15 @@
+{{ define "main" }}
+{{ $pages := .Pages }}
+{{ $total := len $pages }}
+<header class="sechead col">
+  <span class="sechead__count">{{ $total }} entr{{ cond (eq $total 1) "y" "ies" }}</span>
+  <h1>{{ .Title }}</h1>
+  {{ with .Description }}<p>{{ . }}</p>{{ else }}<p>{{ site.Params.description }}</p>{{ end }}
+</header>
+{{ with .Content }}<div class="prose col">{{ . }}</div>{{ end }}
+<ol class="index" reversed>
+  {{ range $i, $p := $pages }}
+    {{ partial "entry.html" (dict "page" $p "num" (sub $total $i)) }}
+  {{ end }}
+</ol>
+{{ end }}

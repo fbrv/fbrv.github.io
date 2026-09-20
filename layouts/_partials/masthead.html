@@ -1,0 +1,26 @@
+<header class="masthead">
+  <div class="masthead__bar">
+    <a class="brand" href="{{ "/" | relURL }}">
+      {{ site.Title }} <span class="brand__mark">/</span> {{ site.Params.subtitle | default "Notebook" }}
+    </a>
+    {{- if site.Params.revision }}
+    {{- $latest := index (where site.RegularPages "Section" "posts") 0 }}
+    {{- with $latest }}<span class="masthead__meta">rev {{ .Date.Format "2006.01" }}</span>{{ end }}
+    {{- end }}
+    <nav class="nav" aria-label="Primary">
+      {{- range site.Menus.main }}
+      <a href="{{ .URL | relURL }}"{{ if $.IsMenuCurrent "main" . }} aria-current="page"{{ end }}>{{ .Name }}</a>
+      {{- end }}
+      <span class="ctl-group">
+        <button class="theme-toggle" type="button" data-measure-toggle
+                aria-label="Reading width" title="Reading width">
+          <span aria-hidden="true" data-measure-icon>↔</span>
+        </button>
+        <button class="theme-toggle" type="button" data-theme-toggle
+                aria-label="Toggle colour scheme" title="Colour scheme">
+          <span aria-hidden="true">◐</span>
+        </button>
+      </span>
+    </nav>
+  </div>
+</header>

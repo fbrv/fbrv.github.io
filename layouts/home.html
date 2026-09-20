@@ -1,0 +1,22 @@
+{{ define "main" }}
+{{ $posts := where site.RegularPages "Section" "posts" }}
+{{ $total := len $posts }}
+<section class="cover col">
+  <div class="cover__rule"><span class="cover__label">{{ site.Params.subtitle | default "Notebook" }}</span></div>
+  <h1>{{ site.Params.tagline | default site.Title }}</h1>
+  <p>{{ site.Params.description }}</p>
+</section>
+
+{{ if $posts }}
+<div class="cover__rule" style="margin-bottom:1.5rem">
+  <span class="cover__label">Entries · {{ $total }}</span>
+</div>
+<ol class="index" reversed>
+  {{ range $i, $p := $posts }}
+    {{ partial "entry.html" (dict "page" $p "num" (sub $total $i)) }}
+  {{ end }}
+</ol>
+{{ else }}
+<p class="col">No entries yet.</p>
+{{ end }}
+{{ end }}

@@ -1,0 +1,5 @@
+{{- /* {{< sidenote "1" >}} Margin note text. {{< /sidenote >}} */ -}}
+<aside class="sidenote" role="note">
+  {{- with .Get 0 }}<span class="sidenote__num">Note {{ . }}</span>{{ end -}}
+  {{ .Inner | .Page.RenderString }}
+</aside>

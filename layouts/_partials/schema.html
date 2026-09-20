@@ -1,0 +1,80 @@
+{{- $author := site.Params.author | default "Author" -}}
+{{- $person := dict
+      "@type" "Person"
+      "name" $author
+      "url" site.BaseURL
+-}}
+{{- with site.Params.profile.github -}}
+  {{- $person = merge $person (dict "sameAs" (slice (printf "https://github.com/%s" .))) -}}
+{{- end -}}
+
+{{- if .IsHome -}}
+  {{- $site := dict
+        "@context" "https://schema.org"
+        "@type" "WebSite"
+        "name" site.Title
+        "alternateName" (site.Params.subtitle | default "")
+        "url" site.BaseURL
+        "description" site.Params.description
+        "inLanguage" site.Language.Lang
+        "author" $person
+        "publisher" $person
+  -}}
+  {{- $blog := dict
+        "@context" "https://schema.org"
+        "@type" "Blog"
+        "name" site.Title
+        "url" site.BaseURL
+        "description" site.Params.description
+        "inLanguage" site.Language.Lang
+        "author" $person
+        "keywords" (delimit (site.Params.keywords | default slice) ", ")
+  -}}
+<script type="application/ld+json">{{ (slice $site $blog) | jsonify (dict "indent" "  ") | safeJS }}</script>
+
+{{- else if and .IsPage (eq .Section "posts") -}}
+  {{- $desc := .Description | default .Summary | plainify | truncate 200 -}}
+  {{- $post := dict
+        "@context" "https://schema.org"
+        "@type" "BlogPosting"
+        "headline" .Title
+        "description" $desc
+        "url" .Permalink
+        "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Permalink)
+        "datePublished" (.Date.Format "2006-01-02T15:04:05Z07:00")
+        "dateModified" (cond .Lastmod.IsZero (.Date.Format "2006-01-02T15:04:05Z07:00") (.Lastmod.Format "2006-01-02T15:04:05Z07:00"))
+        "author" $person
+        "publisher" $person
+        "inLanguage" site.Language.Lang
+        "wordCount" .WordCount
+        "timeRequired" (printf "PT%dM" (.ReadingTime | default 1))
+        "articleSection" "Software engineering"
+        "isAccessibleForFree" true
+        "license" "https://creativecommons.org/licenses/by/4.0/"
+  -}}
+  {{- with .Params.tags }}{{ $post = merge $post (dict "keywords" (delimit . ", ")) }}{{ end -}}
+  {{- $crumbs := slice
+        (dict "@type" "ListItem" "position" 1 "name" "Home" "item" site.BaseURL)
+        (dict "@type" "ListItem" "position" 2 "name" "Notebook" "item" (printf "%sposts/" site.BaseURL))
+        (dict "@type" "ListItem" "position" 3 "name" .Title "item" .Permalink)
+  -}}
+  {{- $bc := dict "@context" "https://schema.org" "@type" "BreadcrumbList" "itemListElement" $crumbs -}}
+<script type="application/ld+json">{{ (slice $post $bc) | jsonify (dict "indent" "  ") | safeJS }}</script>
+
+{{- else if or .IsSection (eq .Kind "term") (eq .Kind "taxonomy") -}}
+  {{- $items := slice -}}
+  {{- range $i, $p := (.Pages | first 30) -}}
+    {{- $items = $items | append (dict "@type" "ListItem" "position" (add $i 1) "url" $p.Permalink "name" $p.Title) -}}
+  {{- end -}}
+  {{- $coll := dict
+        "@context" "https://schema.org"
+        "@type" "CollectionPage"
+        "name" .Title
+        "url" .Permalink
+        "description" (.Description | default site.Params.description)
+        "inLanguage" site.Language.Lang
+        "isPartOf" (dict "@type" "WebSite" "name" site.Title "url" site.BaseURL)
+        "mainEntity" (dict "@type" "ItemList" "numberOfItems" (len .Pages) "itemListElement" $items)
+  -}}
+<script type="application/ld+json">{{ $coll | jsonify (dict "indent" "  ") | safeJS }}</script>
+{{- end -}}

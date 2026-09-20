@@ -1,0 +1,16 @@
+# {{ site.Title }}
+User-agent: *
+Allow: /
+{{ if site.Params.allowAICrawlers }}
+# AI / LLM crawlers — explicitly welcome. Flip params.allowAICrawlers to false to reverse.
+{{- range slice "GPTBot" "OAI-SearchBot" "ChatGPT-User" "ClaudeBot" "Claude-User" "Claude-SearchBot" "anthropic-ai" "PerplexityBot" "Perplexity-User" "Google-Extended" "Applebot-Extended" "CCBot" "Bytespider" "meta-externalagent" }}
+User-agent: {{ . }}
+Allow: /
+{{ end }}
+{{- else }}
+{{- range slice "GPTBot" "OAI-SearchBot" "ClaudeBot" "anthropic-ai" "PerplexityBot" "Google-Extended" "Applebot-Extended" "CCBot" "Bytespider" "meta-externalagent" }}
+User-agent: {{ . }}
+Disallow: /
+{{ end }}
+{{- end }}
+Sitemap: {{ "sitemap.xml" | absURL }}
