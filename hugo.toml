@@ -46,11 +46,6 @@ timeout = "60s"
   url    = "/tags/"
   weight = 2
 
-[[menu.main]]
-  name   = "About"
-  url    = "/about/"
-  weight = 3
-
 # Output formats ----------------------------------------------------------
 [outputFormats]
   [outputFormats.llms]
