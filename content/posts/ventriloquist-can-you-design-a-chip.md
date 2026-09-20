@@ -1,9 +1,9 @@
 +++
 date = '2026-09-18T00:00:00Z'
 draft = false
-title = 'Ventriloquist: can you design a chip?'
+title = 'Can you design a chip?'
 description = 'Jane Street is running an ASIC design competition. Notes on what I am building for it.'
-tags = ['ventriloquist', 'asic', 'tiny-tapeout', 'rust', 'hardware']
+tags = ['asic', 'tiny-tapeout', 'rust', 'hardware']
 +++
 
 Recently I spent some time on a Jane Street challenge, ["Can you reverse engineer an ASIC?"](https://blog.janestreet.com/can-you-reverse-engineer-an-asic/). You get the GDS of a chip, and you have to work out what the circuit does and simulate it to find the input that makes it say success. I found it very interesting and it brought back things I thought I had lost a long time ago.  
