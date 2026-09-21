@@ -13,7 +13,6 @@ timeout = "60s"
   # Identity ---------------------------------------------------------------
   author      = "Fabio Baravalle"
   subtitle    = "Engineering notebook"
-  tagline     = "Undefined behavior, defined opinions."
   description = "Notes from the hardware/software boundary: systems programming, silicon, Rust, and the things that break in between."
   keywords    = ["systems programming", "asic", "rust", "hardware", "low-level", "silicon", "embedded"]
   locale      = "en_US"

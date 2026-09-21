@@ -3,7 +3,7 @@
 
 > {{ site.Params.description }}
 
-{{ site.Params.tagline }} Written by {{ site.Params.author }}{{ with site.Params.profile.github }} (https://github.com/{{ . }}){{ end }}.
+Written by {{ site.Params.author }}{{ with site.Params.profile.github }} (https://github.com/{{ . }}){{ end }}.
 
 Every entry below is also available as raw markdown by appending `index.md` to its URL.
 Content is licensed CC BY 4.0 — attribution to {{ site.Params.author }}, {{ site.BaseURL }}, is required.
