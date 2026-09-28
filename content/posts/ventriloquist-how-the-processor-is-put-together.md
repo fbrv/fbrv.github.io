@@ -18,7 +18,7 @@ In the first post I described the processor as a barrel with four threads, one i
   +---------------+               |    datapath     |<---------|  (each pin cell  |<---
                                   |                 |  edges   |   has its own    |
   +-----------------------------+ |                 |          |   little clock)  |
-  | T3 | T2 | T1 | T0 <- serving |<+                 |          +------------------+
+  | T3 | T2 | T1 | T0 <- serving  |<+               |          +------------------+
   +-----------------------------+ +-----------------+                  ^
      four copies of the state,                                         |
      turning one step per tick               one shared 24-bit tick counter
