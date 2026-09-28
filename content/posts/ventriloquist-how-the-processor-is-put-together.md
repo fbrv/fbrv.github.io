@@ -1,6 +1,6 @@
 +++
 date = '2026-09-28T00:00:00Z'
-draft = true
+draft = false
 title = 'Ventriloquist: how the processor is put together'
 description = 'The core of the protocol-emulator chip exists and has been through the layout tools. How four threads ended up sharing one datapath, what it cost, and what the tools found.'
 tags = ['asic', 'tiny-tapeout', 'rust', 'hardware']
