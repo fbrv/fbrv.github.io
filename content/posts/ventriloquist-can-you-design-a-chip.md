@@ -13,6 +13,14 @@ I think the biggest problem is that a normal CPU cannot promise when a pin will 
 
 What I am planning to do is to move the timing out of the CPU and into the pins. Every program has a time cursor on a 24-bit counter shared by every thread and any instruction can say "execute at cursor plus this delay". The CPU does not touch the pins. It passes the write to a pin cell together with the tick it should happen at and the pin cell applies it at that tick, whatever the CPU is doing at that moment. On the input side the pin cell records the time of every edge so the CPU sees "the line went low at tick 8201" instead of "the line is low". So the CPU can be late, it doesn't matter, the pin cell has the time. If it is so late that the tick has already passed, for example because it was blocked waiting for the host or for a pin, the write goes out immediately and the pin cell raises a missed-deadline signal, one per pin. How the program gets to see it I have not decided yet. The counter wraps every 335 ms at 50 MHz, which is longer than any protocol timeout and the compares are done so that wrapping doesn't matter. The CPU is a barrel processor: four hardware threads take turns on one datapath, one instruction each, so every thread gets an instruction every four cycles, 12.5 million a second and one thread cannot slow down another. Four is the plan but I'm not sure they all fit in the chip. Fewer threads means more instructions per thread, so all the numbers below only get better. The host talks to the chip over SPI to load programs and move bytes in and out. How many pins that leaves for protocols is still open.
 
+```
+thread, one instruction every 4 ticks        pin cell                       pin
+                                             
+  at +1 set pin 0 low  ------------------->  holds "low at tick 8213"
+                                             ... counter reaches 8213 --->  goes low
+  wait rise pin 0      <-------------------  "rose at tick 8201"    <---  edge seen
+```
+
 For the instruction set I started from what a program actually needs to say for each of the protocols I care about and it turned out to be quite little. It has 13 instructions in 16-bit words, each with a 3-bit `at` prefix that selects a delay from a per-thread table of eight. Why a table and not a number in the instruction: after the prefix and a 4-bit opcode there are 9 bits left and delays go from a few cycles up to 1.25 million cycles for a 25 ms bus timeout, which is 21 bits, so they were never going to fit. The state of a thread is the cursor, that delay table, an outgoing and an incoming shift register, two small counters called x and y, a CRC register and a few flags. That is what `mov` copies between.
 
 | group | instruction | what it does |
@@ -74,7 +82,7 @@ I'm trying to do the same on the hardware side. The chip is not hand-written Ver
 
 They also say that verification matters more as AI-assisted chip design becomes common. I agree, so I am using more than one LLM (a combination of Claude Opus and OAI Astra) for two jobs, drafting properties and planting bugs in the Verilog. Proving a drafted property does not tell me it was worth stating, a weak or vacuous one proves just fine, that is what the planted bugs are for. If the property set does not catch them it is not doing its job. I will report which of the planted bugs got through.
 
-More as it goes. If you have opinions, especially on the formal side, I would like to hear them.
+More as it goes. If you have opinions, especially on the formal side, I would like to hear them. The next post, [how the processor is put together](/posts/ventriloquist-how-the-processor-is-put-together/), has the measured numbers for the core.
 
 ---
 

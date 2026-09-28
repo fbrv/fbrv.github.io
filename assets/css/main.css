@@ -26,7 +26,7 @@
      ch figure: 70ch reads as ~75-78 characters. Unregistered custom properties
      substitute as tokens, so `ch` resolves against the font of the element that
      uses it, not against :root. */
-  --measure: 70ch;
+  --measure: 80ch;
   --margin-col: 13rem;
   --gutter: 2rem;
   --grid-size: 24px;
@@ -38,13 +38,13 @@
 /* --- reading width ------------------------------------------------------- */
 /* Reader's explicit choice, persisted in localStorage by site.js. */
 :root[data-measure="narrow"] { --measure: 58ch; --margin-col: 12rem; }
-:root[data-measure="normal"] { --measure: 70ch; --margin-col: 13rem; }
-:root[data-measure="wide"]   { --measure: 84ch; --margin-col: 15rem; }
+:root[data-measure="normal"] { --measure: 80ch; --margin-col: 13rem; }
+:root[data-measure="wide"]   { --measure: 92ch; --margin-col: 15rem; }
 
 /* No choice made: let the viewport decide. Big displays get a longer line and
    a roomier margin column; narrow ones pull back so the measure stays honest. */
 @media (min-width: 1500px) {
-  :root:not([data-measure]) { --measure: 76ch; --margin-col: 15rem; }
+  :root:not([data-measure]) { --measure: 86ch; --margin-col: 15rem; }
 }
 
 @media (prefers-color-scheme: dark) {
