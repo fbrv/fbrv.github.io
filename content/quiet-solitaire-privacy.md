@@ -12,7 +12,7 @@ layout = 'all'
 
 # Unlisted: reachable by its URL, absent from the notebook index, the RSS
 # feeds, /llms.txt and the sitemap.
-[_build]
+[build]
   list = 'never'
   render = 'always'
 +++
